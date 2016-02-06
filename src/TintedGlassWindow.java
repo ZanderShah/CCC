@@ -6,6 +6,11 @@ import java.util.Comparator;
 import java.util.StringTokenizer;
 import java.util.TreeSet;
 
+/*
+ * Java implementation of solution from mmhs.ca
+ * The general idea is that it does a sweeping line over the x-axis by adding
+ * tint where the pane starts and removing tint right after the pane ends
+ */
 public class TintedGlassWindow
 {
 

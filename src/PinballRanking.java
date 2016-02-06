@@ -3,6 +3,10 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/*
+ * This still times out for some test cases since adding the element to the list
+ * is not fast enoguh
+ */
 public class PinballRanking
 {
 
@@ -16,6 +20,7 @@ public class PinballRanking
 
 		int t = 0;
 		
+		// Binary search to determine the insertion spot
 		for (int i = 1; i <= n; i++)
 		{
 			int s = Integer.parseInt(br.readLine());

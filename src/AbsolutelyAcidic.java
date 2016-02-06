@@ -10,6 +10,8 @@ public class AbsolutelyAcidic
 
 	public static void main(String[] args) throws Exception
 	{
+		// A method to sort the 2d array because I did not realize sorting objects
+		// was easier at the time
 		final Comparator<int[]> frequency = new Comparator<int[]>() {
 			public int compare(int[] a, int[] b)
 			{
@@ -25,6 +27,7 @@ public class AbsolutelyAcidic
 		for (int i = 0; i < 1001; i++)
 			freq[i][1] = i;
 
+		// Updates the frequency
 		for (int i = 0; i < n; i++)
 		{
 			int r = Integer.parseInt(br.readLine());
@@ -36,6 +39,7 @@ public class AbsolutelyAcidic
 		ArrayList<Integer> first = new ArrayList<Integer>();
 		ArrayList<Integer> second = new ArrayList<Integer>();
 
+		// Add the highest and second highest values to a list
 		int i = 1000;
 		while (freq[i][0] == freq[1000][0])
 		{

@@ -32,6 +32,14 @@ public class ConvexHull
 		}
 	}
 
+	/**
+	 * Conducts a dfs on the graph, keeping track of the best distance
+	 * at each node given a specific hull situation
+	 * 
+	 * @param cur the current node
+	 * @param hull how much hull is left
+	 * @param dis the current distance travelled
+	 */
 	public static void sail(int cur, int hull, int dis)
 	{
 		if (hull <= 0 || dis >= min || islands[cur].best[hull - 1] <= dis)

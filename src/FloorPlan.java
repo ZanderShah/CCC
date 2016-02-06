@@ -6,6 +6,13 @@ public class FloorPlan
 {
 	public static int[][] g;
 
+	/**
+	 * Tags an empty room with a specific number
+	 * 
+	 * @param x the current x-position
+	 * @param y the current y-position
+	 * @param t the number to tag
+	 */
 	public static void tag(int x, int y, int t)
 	{
 		g[x][y] = t;
@@ -37,6 +44,7 @@ public class FloorPlan
 					g[i][j] = -1;
 		}
 
+		// Goes through the array and tags each unique room
 		int t = 1;
 		for (int i = 0; i < r; i++)
 			for (int j = 0; j < c; j++)
@@ -48,6 +56,7 @@ public class FloorPlan
 
 		int[] a = new int[t];
 
+		// Counts the area of each room
 		for (int i = 0; i < r; i++)
 			for (int j = 0; j < c; j++)
 				if (g[i][j] > 0)

@@ -10,6 +10,14 @@ public class MouseJourney
 	public static boolean[][] cat;
 	public static int[][] ways;
 
+	/**
+	 * Count the number of ways that a mouse the bottom rigth of a maze
+	 * 
+	 * @param x the current x-position
+	 * @param y the current y-position
+	 * @return the number of ways that the mouse can get to the bottom 
+	 * 		right of the maze
+	 */
 	public static int solve(int x, int y)
 	{
 		if (ways[x][y] == 0)

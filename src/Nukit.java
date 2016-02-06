@@ -6,6 +6,16 @@ public class Nukit
 {
 	static int[][][][] dp;
 
+	/**
+	 * Go through every single possibility and memoize answers
+	 * 
+	 * @param a
+	 * @param b
+	 * @param c
+	 * @param d
+	 * @param t whose turn it is
+	 * @return the winner given the current state of the game
+	 */
 	static int play(int a, int b, int c, int d, int t)
 	{
 		if (dp[a][b][c][d] != -1)

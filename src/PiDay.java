@@ -5,6 +5,14 @@ public class PiDay
 {
 	public static int[][][] memo;
 
+	/**
+	 * Check all possibilities and memoize answers
+	 * 
+	 * @param n the number of pies
+	 * @param k the number of people
+	 * @param m the pie to be looked at
+	 * @return the number of ways that the pieces can be given out
+	 */
 	public static int eat(int n, int k, int m)
 	{
 		if (memo[n][k][m] == 0)

@@ -36,6 +36,7 @@ public class Friends
 		int a = Integer.parseInt(st.nextToken());
 		int b = Integer.parseInt(st.nextToken());
 
+		// Preform a bfs on the graph to determine the distance of a friend
 		while (a != 0 || b != 0)
 		{
 			Queue<Integer[]> q = new LinkedList<Integer[]>();

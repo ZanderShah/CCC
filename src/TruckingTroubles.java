@@ -58,10 +58,14 @@ public class TruckingTroubles
 
 		int[] mst = new int[c];
 
+		// Greedily determine the route to take by always choosing
+		// the road with the maximum weight capacity
 		for (int i = 0; i < c; i++)
 			for (Road j : cities[i].roads)
 				mst[j.d] = Math.max(mst[j.d], j.w);
 
+		// The maximum possible weight carries is the minimum accross all
+		// the used edges
 		int min = Integer.MAX_VALUE;
 		for (int i : de)
 			if (mst[i] < min)

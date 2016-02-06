@@ -2,7 +2,9 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 
-
+/*
+ * Currently incomplete
+ */
 public class GreedyForPies
 {
 	public static int n, m;

@@ -24,6 +24,8 @@ public class Switch
 		q.add(c);
 		dp[c] = 0;
 
+		// Goes through every possibility, keeping the current state of the 
+		// lights stores as a number obtained by representing the lights using binary
 		while (!q.isEmpty())
 		{
 			int t = q.poll();

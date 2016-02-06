@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.StringTokenizer;
 
-/**
+/*
  * This one is not mine, it is Jacob Jackson's solution.
  */
 public class LazyFox

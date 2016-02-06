@@ -15,6 +15,7 @@ public class Dupvoting
 
 		int total = 0;
 
+		// Brute force loop that counts all possibilties
 		for (int dup = 0; dup <= u; dup++)
 			for (int up = 0; up <= u - dup; up++)
 			{

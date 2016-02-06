@@ -5,6 +5,8 @@ public class Bananas
 {
 	public static boolean isMonkey(String s)
 	{
+		// Replaces monkey words with a smaller monkey word which
+		// will eventually reduce the problem to a simple state
 		for (int i = 0; i < s.length() - 2; i++)
 		{
 			String c = s.substring(i, i + 3);
@@ -19,12 +21,6 @@ public class Bananas
 		return s.equals("A");
 	}
 
-	/*
-	 * A monkey language word is a special type of word called an A-word, which
-	 * may be optionally followed by the letter N and a monkey language word. 
-	 * An A-word is either only the single letter A, or the letter B followed by a
-	 * monkey language word followed by the letter S.
-	 */
 	public static void main(String[] args) throws Exception
 	{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

@@ -8,6 +8,13 @@ public class ChancesOfWinning
 	public static int fav;
 	public static int poss = 0;
 
+	/**
+	 * Runs through the game given the specific state and recursively determines
+	 * all possible endings
+	 * 
+	 * @param play whether or not the teams have played
+	 * @param points how many points each team has
+	 */
 	public static void sim(boolean[][] play, int[] points)
 	{
 		boolean[][] games = new boolean[play.length][play.length];

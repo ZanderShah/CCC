@@ -12,6 +12,7 @@ public class Gates
 		int g = Integer.parseInt(br.readLine());
 		int n = Integer.parseInt(br.readLine());
 		
+		// Adds all possible gates to a list
 		ArrayList<Integer> t = new ArrayList<Integer>();
 		
 		for (int i = 1; i <= g; i++)
@@ -19,6 +20,8 @@ public class Gates
 
 		long total = 0;
 		
+		// Binary searches for the best possible gate for a given plane
+		// If a gate cannot be found, the plan has nowhere to land
 		for (int i = 0; i < n; i++)
 		{
 			int q = Integer.parseInt(br.readLine());

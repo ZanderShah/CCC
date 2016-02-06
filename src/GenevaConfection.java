@@ -10,6 +10,8 @@ public class GenevaConfection
 
 		int cases = Integer.parseInt(br.readLine());
 
+		// Tries to put the sequence in order by storing whatever is
+		// not in order in a stack
 		for (int test = 0; test < cases; test++)
 		{
 			int n = Integer.parseInt(br.readLine());

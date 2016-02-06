@@ -2,6 +2,11 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
+/*
+ * Annoying geometry problem
+ * Goes through every line in every object and checks where the 
+ * intersection points are if any
+ */
 public class TinCanTelephone
 {
 

@@ -21,6 +21,8 @@ public class KnightHop
 		Queue<Integer[]> q = new LinkedList<Integer[]>();
 		q.add(new Integer[] { x1, y1, 0 });
 
+		// Bfs on the chess board, numbering tiles by the minimum number
+		// of moves it requires to get to them
 		while (!q.isEmpty())
 		{
 			Integer[] c = q.poll();
