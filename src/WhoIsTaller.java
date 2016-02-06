@@ -68,6 +68,7 @@ public class WhoIsTaller
 		int a = Integer.parseInt(st.nextToken()) - 1;
 		int b = Integer.parseInt(st.nextToken()) - 1;
 
+		// Performs 2 dfs to see who is taller
 		if (solve(a, b))
 			System.out.println("yes");
 		else if (solve(b, a))

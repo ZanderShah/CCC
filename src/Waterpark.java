@@ -14,6 +14,12 @@ public class Waterpark
 	public static int[] dp;
 	public static int n;
 
+	/**
+	 * Performs a dfs of the graph, memoizing answers
+	 * 
+	 * @param c the current spot on the slide
+	 * @return the number of total number of ways
+	 */
 	public static int slide(int c)
 	{
 		if (dp[c] == 0)
