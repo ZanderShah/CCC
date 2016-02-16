@@ -2,23 +2,29 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.StringTokenizer;
 
-/*
- * This one is not mine, it is Jacob Jackson's solution.
- */
 public class LazyFox
 {
+	public static class Path implements Comparable<Path>
+	{
+		int a, b, d;
+
+		public Path(int a, int b, int d)
+		{
+			this.a = a;
+			this.b = b;
+			this.d = d;
+		}
+
+		public int compareTo(Path x)
+		{
+			return d - x.d;
+		}
+	}
+
 	public static void main(String[] args) throws Exception
 	{
-		final Comparator<Integer[]> distance = new Comparator<Integer[]>() {
-			public int compare(Integer[] a, Integer[] b)
-			{
-				return a[0] - b[0];
-			}
-		};
-
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
 		int n = Integer.parseInt(br.readLine());
@@ -31,25 +37,25 @@ public class LazyFox
 			c[i][1] = Integer.parseInt(st.nextToken());
 		}
 
-		ArrayList<Integer[]> pairs = new ArrayList<Integer[]>();
+		ArrayList<Path> all = new ArrayList<Path>();
+
 		for (int i = 0; i <= n; i++)
 			for (int j = i + 1; j <= n; j++)
-				pairs.add(new Integer[] {
-						(c[i][0] - c[j][0]) * (c[i][0] - c[j][0])
-								+ (c[i][1] - c[j][1]) * (c[i][1] - c[j][1]), i,
-						j });
+				all.add(new Path(i, j, (c[i][0] - c[j][0])
+						* (c[i][0] - c[j][0])
+						+ (c[i][1] - c[j][1]) * (c[i][1] - c[j][1])));
 
-		Collections.sort(pairs, distance);
+		Collections.sort(all);
 
 		int[] best = new int[n + 1];
 		int[] pbest = new int[n + 1];
 		int[] pdist = new int[n + 1];
 
-		for (Integer[] p : pairs)
+		for (Path p : all)
 		{
-			int d = p[0];
-			int a = p[1];
-			int b = p[2];
+			int d = p.d;
+			int a = p.a;
+			int b = p.b;
 
 			if (d != pdist[a])
 			{

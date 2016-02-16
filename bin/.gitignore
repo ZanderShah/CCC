@@ -1,5 +1,7 @@
 /AbsolutelyAcidic$1.class
 /AbsolutelyAcidic.class
+/AnimalFarm.class
+/Artsjki.class
 /Bananas.class
 /ChancesOfWinning.class
 /ConvexHull$Island.class
@@ -13,7 +15,12 @@
 /Gates.class
 /GenevaConfection.class
 /GreedyForPies.class
+/HungryFox.class
 /KnightHop.class
+/LHC$Node.class
+/LHC.class
+/LazyFox$1.class
+/LazyFox.class
 /Maze.class
 /MouseJourney.class
 /Nukit.class
@@ -26,6 +33,7 @@
 /TinCanTelephone.class
 /TintedGlassWindow$1.class
 /TintedGlassWindow.class
+/Troyangles.class
 /TruckingTroubles$City.class
 /TruckingTroubles$Road.class
 /TruckingTroubles.class
@@ -33,10 +41,8 @@
 /Waterpark.class
 /WhoIsTaller$Student.class
 /WhoIsTaller.class
-/LazyFox$1.class
-/LazyFox.class
-/Artsjki.class
-/HungryFox.class
-/LHC$Node.class
-/LHC.class
-/Troyangles.class
+/Wireless.class
+/CoinGame.class
+/Main.class
+/LightsGoingOnOff.class
+/LazyFox$Path.class

@@ -2,9 +2,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 
-/*
- * Currently incomplete
- */
 public class GreedyForPies
 {
 	public static int n, m;
@@ -16,30 +13,30 @@ public class GreedyForPies
 		int ret = dp[a][b][l][r];
 		if (ret != -1)
 			return ret;
-		if (a == n)
+		if (a == n + 1)
 		{
 			if (l <= r)
 			{
-				if (b == 0)
-					return ret = eat(a, 1, l, r - 1);
-				return ret = eat(a, 0, l + 1, r);
+				if (b == 1)
+					return ret = x[r] + eat(a, 0, l, r - 1);
+				return ret = eat(a, 1, l + 1, r);
 			}
 			return ret = 0;
 		}
-		if (b == 0)
+		if (b == 1)
 		{
-			ret = Math.max(eat(a, 1, l, r), p[a] + eat(a + 1, l, l, r));
+			ret = Math.max(eat(a, 0, l, r), p[a] + eat(a + 1, 0, l, r));
 			if (l <= r)
-				ret = Math.max(ret, x[r] + eat(a, 1, l, r - 1));
+				ret = Math.max(ret, x[r] + eat(a, 0, l, r - 1));
 		}
 		else 
 		{
-			ret = eat(a + 1, 0, l, r);
+			ret = eat(a + 1, 1, l, r);
 			if (l <= r)
-				ret = Math.max(ret, eat(a, 0, l + 1, r));
+				ret = Math.max(ret, eat(a, 1, l + 1, r));
 		}
 		
-		return ret;
+		return dp[a][b][l][r] = ret;
 	}
 	
 	public static void main(String[] args) throws Exception
