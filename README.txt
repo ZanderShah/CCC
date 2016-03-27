@@ -1,4 +1,4 @@
-CCC
-===
+Contest-Problems
+================
 
-These are solutions that I've written for various problems from the Canadian Computing Competition and the Canadian Computing Olympiad.
+Solutions that I've written for problems from various contests such as CCC, CCO, ECOO, DMOPC, USACO, and Codeforces.
