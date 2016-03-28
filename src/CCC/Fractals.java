@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
+// Incomplete
 public class Fractals
 {
 	static int level, width, x;

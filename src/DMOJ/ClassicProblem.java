@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
+// Too slow
 public class ClassicProblem
 {
 	static int max(int i, int j)

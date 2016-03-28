@@ -1,4 +1,5 @@
-package Codeforces;
+package WCIPEG;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -6,52 +7,50 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.StringTokenizer;
 
-public class Solution
+public class Pillaging
 {
+	static class Village implements Comparable<Village>
+	{
+		int p, x, s;
+
+		Village(int pp, int xx, int ss)
+		{
+			p = pp;
+			x = xx;
+			s = ss;
+		}
+
+		public int compareTo(Village v)
+		{
+			return p - v.p;
+		}
+	}
 
 	public static void main(String[] args) throws Exception
 	{
+		int n = readInt();
 		int t = readInt();
-		for (int q = 0; q < t; q++)
+		Village[] v = new Village[n];
+		long[] a = new long[n + 1];
+		long[] b = new long[n + 1];
+		b[0] = -t;
+		for (int i = 0; i < n; i++)
+			v[i] = new Village(readInt(), readInt(), readInt());
+		Arrays.sort(v);
+
+		for (int i = 1; i <= n; i++)
 		{
-			int m = readInt();
-			int n = readInt();
-
-			int[] c = new int[n];
-			int[] x = new int[n];
-			for (int i = 0; i < n; i++)
-			{
-				x[i] = readInt();
-				c[i] = x[i];
-			}
-
-			Arrays.sort(x);
-			int b = n - 1;
-			int a = 0;
-			for (; a < b; a++)
-			{
-				while (b > a && x[a] + x[b] > m)
-					b--;
-				if (x[a] + x[b] == m)
-					break;
-			}
-
-			int j = 0;
-			int low = -1;
-			int up = -1;
-			
-			for (; j < n && low == -1; j++)
-				if (c[j] == x[a] || c[j] == x[b])
-					low = j + 1;
-			for (; j < n && up == -1; j++)
-				if (c[j] == x[a] || c[j] == x[b])
-					up = j + 1;
-
-			System.out.println(low + " " + up);
+			a[i] = a[i - 1];
+			b[i] = b[i - 1];
+			if (v[i - 1].s == 0)
+				a[i] = Math.max(a[i] + v[i - 1].x, b[i] - t + v[i - 1].x);
+			else
+				b[i] = Math.max(b[i] + v[i - 1].x, a[i] - t + v[i - 1].x);
 		}
+
+		System.out.println(Math.max(a[n], b[n]));
 	}
 
 	static BufferedReader br = new BufferedReader(new InputStreamReader(
@@ -91,5 +90,4 @@ public class Solution
 	{
 		return br.readLine().trim();
 	}
-
 }

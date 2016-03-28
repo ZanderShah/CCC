@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /*
- * This still times out for some test cases since adding the element to the list
- * is not fast enoguh
+ * This still times out for some test cases since adding an
+ * element to the list is slow
  */
 public class PinballRanking
 {

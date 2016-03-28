@@ -4,6 +4,8 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
+// Solved for maximum happiness but not minimum seconds
+// I might have to do a non-recursive dp
 public class HappyTeachers
 {
 	static int n, s, best, time = Integer.MAX_VALUE;

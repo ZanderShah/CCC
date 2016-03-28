@@ -4,6 +4,7 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
+// Incomplete
 public class PickIt
 {
 	static int[] dp, k;

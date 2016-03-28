@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.StringTokenizer;
 
+// Super sketchy solution but works
+// The intended solution is bitmask dp but when I wrote this contest I didn't know that
 public class CakeBalancing
 {
 	public static int min, weight;
