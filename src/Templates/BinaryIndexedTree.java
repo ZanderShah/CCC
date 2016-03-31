@@ -6,7 +6,7 @@ public class BinaryIndexedTree
 	
 	static void pointUpdate(int x, long v)
 	{
-		for (; x <= 100000; x += (x & (-x)))
+		for (; x <= n; x += (x & (-x)))
 			bit[x] += v;
 	}
 

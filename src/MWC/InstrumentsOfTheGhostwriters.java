@@ -1,14 +1,13 @@
 package MWC;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.StringTokenizer;
-import java.util.TreeMap;
 
 public class InstrumentsOfTheGhostwriters
 {
@@ -18,7 +17,8 @@ public class InstrumentsOfTheGhostwriters
 		int r = readInt();
 		int m = readInt();
 		int q = readInt();
-		int[] rowM = new int[r + 1], colM = new int[c + 1], rowD = new int[r + 1], colD = new int[c + 1], colZero = new int[c + 1], rowZero = new int[r + 1];
+		long[] rowM = new long[r + 1], colM = new long[c + 1], rowD = new long[r + 1], colD = new long[c + 1];
+		int[] rowZero = new int[r + 1], colZero = new int[c + 1];
 		long[][] sum = new long[r + 1][c + 1];
 
 		for (int i = 0; i <= r; i++)
@@ -69,49 +69,41 @@ public class InstrumentsOfTheGhostwriters
 
 		for (int i = 1; i <= r; i++)
 		{
-			rowM[i] *= rowM[i - 1];
-			rowD[i] *= rowD[i - 1];
+			rowM[i] *= rowM[i - 1] / rowD[i];
 			rowZero[i] += rowZero[i - 1];
 		}
 
 		for (int i = 1; i <= c; i++)
 		{
-			colM[i] *= colM[i - 1];
-			colD[i] *= colD[i - 1];
+			colM[i] *= colM[i - 1] / colD[i];
 			colZero[i] += colZero[i - 1];
 		}
 
-		for (int i = 1, v; i <= r; i++)
+		for (int i = 1; i <= r; i++)
 			for (int j = 1; j <= c; j++)
-			{
-				if (rowZero[i - 1] != 0 || colZero[j - 1] != 0)
-					v = 0;
+				if (colZero[j - 1] > 0 || rowZero[i - 1] > 0)
+					sum[i][j] = sum[i - 1][j]
+							+ sum[i][j - 1]
+							- sum[i - 1][j - 1];
 				else
-					v = rowM[i - 1] * colM[j - 1]
-							/ (rowD[i - 1] * colD[j - 1]);
-				sum[i][j] = v + sum[i - 1][j]
-						+ sum[i][j - 1]
-						- sum[i - 1][j - 1];
-			}
+					sum[i][j] = rowM[i - 1] * colM[j - 1] + sum[i - 1][j]
+							+ sum[i][j - 1]
+							- sum[i - 1][j - 1];
 
-		TreeMap<Long, Integer> look = new TreeMap<Long, Integer>();
+		HashMap<Long, Integer> look = new HashMap<Long, Integer>();
 		for (int a = 1; a <= r; a++)
 			for (int b = 1; b <= c; b++)
 				for (int e = a; e <= r; e++)
 					for (int d = b; d <= c; d++)
 					{
-						Integer k = look.get(sum[e][d] + sum[a - 1][b - 1]
+						long v = sum[e][d] + sum[a - 1][b - 1]
 								- sum[e][b - 1]
-								- sum[a - 1][d]);
+								- sum[a - 1][d];
+						Integer k = look.get(v);
 						if (k != null)
-							look.replace(sum[e][d] + sum[a - 1][b - 1]
-									- sum[e][b - 1]
-									- sum[a - 1][d],
-									k + 1);
+							look.put(v, k + 1);
 						else
-							look.put(sum[e][d] + sum[a - 1][b - 1]
-									- sum[e][b - 1]
-									- sum[a - 1][d], 1);
+							look.put(v, 1);
 					}
 
 		for (int i = 0; i < q; i++)
@@ -125,11 +117,11 @@ public class InstrumentsOfTheGhostwriters
 				out.println(0);
 			else
 			{
-				Integer v = look.get(o / x);
-				if (v == null)
+				Integer a = look.get(o / x);
+				if (a == null)
 					out.println(0);
 				else
-					out.println(v);
+					out.println(a);
 			}
 		}
 		out.close();
@@ -172,5 +164,4 @@ public class InstrumentsOfTheGhostwriters
 	{
 		return br.readLine().trim();
 	}
-
 }
