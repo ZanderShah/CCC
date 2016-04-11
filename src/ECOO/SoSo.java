@@ -10,6 +10,7 @@ import java.util.StringTokenizer;
 
 public class SoSo
 {
+	// Incomplete
 	static int r, c, g[][];
 
 	public static void main(String[] args) throws Exception
