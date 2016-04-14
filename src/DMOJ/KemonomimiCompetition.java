@@ -1,31 +1,38 @@
-package CCC;
+package DMOJ;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-// Incomplete
-public class Fractals
+public class KemonomimiCompetition
 {
-	static int level, width, x;
-	static ArrayList<Integer> cross;
-
-	// 0 > 1 < 2 ^ 3 v
-	static void fractal(int l, int x1, int x2, int y1, int y2, int d)
-	{
-		
-	}
-
 	public static void main(String[] args) throws Exception
 	{
-		level = readInt();
-		width = readInt();
-		x = readInt();
-		fractal(0, 0, width, 1, 1, 0);
+		int n = readInt();
+		int[] c = { readInt(), readInt(), readInt(), readInt() };
+		int[][] q = new int[n][4];
+		int w = 0;
+
+		for (int i = 0; i < n; i++)
+		{
+			q[i][0] = readInt() - 1;
+			q[i][1] = readInt();
+			q[i][2] = readInt();
+			q[i][3] = readInt();
+			w = Math.max(q[i][2], w);
+		}
+		w = 180 - w;
+		for (int i = 0; i < n; i++)
+			if (q[i][1] == 10)
+				System.out.println("0");
+			else if (q[i][3] * c[q[i][0]] <= w)
+				System.out.println(10 - q[i][1]);
+			else
+				System.out.println("The kemonomimi are too cute!");
 	}
 
 	static BufferedReader br = new BufferedReader(new InputStreamReader(
@@ -65,5 +72,4 @@ public class Fractals
 	{
 		return br.readLine().trim();
 	}
-
 }

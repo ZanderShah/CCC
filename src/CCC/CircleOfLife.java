@@ -8,7 +8,6 @@ import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-// How do you even come up with this stuff during the contest
 public class CircleOfLife
 {
 	static int[] move(int i, int[] old)

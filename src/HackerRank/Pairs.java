@@ -1,55 +1,37 @@
-package ECOO;
+package HackerRank;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.util.HashSet;
 import java.util.StringTokenizer;
 
-public class SerialNumberDates
+public class Pairs
 {
 
 	public static void main(String[] args) throws Exception
 	{
-		for (int c = 0; c < 5; c++)
+		int n = readInt();
+		int k = readInt();
+		
+		HashSet<Integer> h = new HashSet<Integer>(); 
+		int c = 0;
+		for (int i = 0, x; i < n; i++)
 		{
-			String[] date = readLine().split(".");
-
-			long days = Integer.parseInt(date[0]);
-			double partOfDay = Integer.parseInt(date[1])
-					/ Math.pow(10, date[1].length());
-
-			long extra = days / 365;
-			long leap = extra / 4 + 1;
-			long year = 1904 + extra;
-			days -= extra * 365 + leap;
-
-			int[] dOfM = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-
-			int month = 0;
-			for (; month < 12; month++)
-				if (month == 1 && year % 4 == 0 && days > 29)
-					days -= 29;
-				else if (days > dOfM[month])
-					days -= dOfM[month];
-				else
-					break;
-
-			int hour = 0;
-			for (; hour < 24; hour++)
-				if (1.0 / 60 < partOfDay)
-					partOfDay -= 1.0 / 60;
-				else
-				{
-					hour--;
-					break;
-				}
-			
-			System.out.println(year + " " + month + " " + hour);
+			x = readInt();
+			if (h.contains(x - k))
+				c++;
+			if (h.contains(x + k))
+				c++;
+			h.add(x);
 		}
+		
+		System.out.println(c);
 	}
-
+	
 	static BufferedReader br = new BufferedReader(new InputStreamReader(
 			System.in));
 	static PrintWriter out = new PrintWriter(new BufferedWriter(
@@ -87,5 +69,4 @@ public class SerialNumberDates
 	{
 		return br.readLine().trim();
 	}
-
 }
