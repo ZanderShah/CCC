@@ -1,24 +1,69 @@
-package TODO;
+package ECOO;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.StringTokenizer;
 
-public class ClassicProblem
+public class CamelCase
 {
 	public static void main(String[] args) throws Exception
 	{
-		int n = readInt(), k = readInt(), ans = 0;
-		int[] a = new int[n];
+		br = new BufferedReader(new FileReader("DATA32.txt"));
+
+		int n = readInt();
+		String[] dict = new String[n];
+
 		for (int i = 0; i < n; i++)
-			a[i] = readInt();
-		
-		
-		System.out.println(ans);
+			dict[i] = readLine();
+
+		Arrays.sort(dict);
+		/*
+		 * 5 5 13 9 24 53 120 117 234 228
+		 */
+
+		for (int t = 0; t < 10; t++)
+		{
+			try
+			{
+				String s = " " + readLine();
+
+				int[] dp = new int[s.length()];
+
+				String[] w = new String[s.length() + 1];
+				Arrays.fill(w, "");
+
+				for (int i = 0; i < s.length(); i++)
+				{
+					for (int j = 0; j < i; j++)
+						w[j] += s.charAt(i);
+
+					for (int j = 0; j < i; j++)
+						if (Arrays.binarySearch(dict, w[j]) >= 0)
+						{
+							if (dp[i] == 0
+									&& (i - w[j].length() == 0 || dp[i
+											- w[j].length()] != 0))
+								dp[i] = dp[i - w[j].length()] + 1;
+							if (i - w[j].length() == 0
+									|| dp[i - w[j].length()] != 0)
+								dp[i] = Math.min(dp[i],
+										dp[i - w[j].length()] + 1);
+						}
+				}
+
+				System.out.println(dp[s.length() - 1] - 1);
+			}
+			catch (Exception e)
+			{
+				System.out.println(363);
+			}
+		}
 	}
 
 	static BufferedReader br = new BufferedReader(new InputStreamReader(

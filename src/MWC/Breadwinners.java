@@ -1,24 +1,48 @@
-package TODO;
+package MWC;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class ClassicProblem
+public class Breadwinners
 {
+	static boolean isPrime(int x)
+	{
+		for (int i = 2; i * i <= x; i++)
+			if (x % i == 0)
+				return false;
+		return true;
+	}
+
 	public static void main(String[] args) throws Exception
 	{
-		int n = readInt(), k = readInt(), ans = 0;
-		int[] a = new int[n];
-		for (int i = 0; i < n; i++)
-			a[i] = readInt();
-		
-		
-		System.out.println(ans);
+		int n = readInt();
+		int[] c = new int[100001];
+
+		int small = 2;
+		c[0] = -1;
+		c[1] = -1;
+		c[2] = -1;
+
+		for (int i = 3; i <= 100000; i++)
+		{
+			c[i] = small;
+			if (isPrime(i))
+				small = i;
+		}
+
+		for (int i = 0, x; i < n; i++)
+		{
+			x = readInt();
+			if (c[x] == -1)
+				System.out.println("no can do");
+			else
+				System.out.println(c[x]);
+		}
 	}
 
 	static BufferedReader br = new BufferedReader(new InputStreamReader(

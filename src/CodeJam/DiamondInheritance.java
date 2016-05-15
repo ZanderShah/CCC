@@ -1,24 +1,70 @@
-package TODO;
+package CodeJam;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.StringTokenizer;
 
-public class ClassicProblem
+public class DiamondInheritance
 {
+	static ArrayList<Integer>[] adj;
+	static boolean[] vis;
+	static boolean diamond;
+
+	static void search(int x)
+	{
+		if (diamond)
+			return;
+
+		if (vis[x])
+			diamond = true;
+
+		vis[x] = true;
+		for (int i : adj[x])
+			search(i);
+	}
+
 	public static void main(String[] args) throws Exception
 	{
-		int n = readInt(), k = readInt(), ans = 0;
-		int[] a = new int[n];
-		for (int i = 0; i < n; i++)
-			a[i] = readInt();
-		
-		
-		System.out.println(ans);
+		out = new PrintWriter(new FileWriter("out.txt"));
+
+		int t = readInt();
+		for (int r = 1; r <= t; r++)
+		{
+			int n = readInt();
+			adj = new ArrayList[n];
+			for (int i = 0; i < n; i++)
+				adj[i] = new ArrayList<Integer>();
+
+			for (int i = 0; i < n; i++)
+			{
+				int m = readInt();
+				for (int j = 0; j < m; j++)
+					adj[readInt() - 1].add(i);
+			}
+
+			diamond = false;
+
+			for (int i = 0; i < n && !diamond; i++)
+			{
+				vis = new boolean[n];
+				search(i);
+			}
+
+			out.printf("Case #%d: ", r);
+			if (diamond)
+				out.println("Yes");
+			else
+				out.println("No");
+		}
+		out.close();
 	}
 
 	static BufferedReader br = new BufferedReader(new InputStreamReader(

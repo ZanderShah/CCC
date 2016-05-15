@@ -1,24 +1,58 @@
-package TODO;
+package MWC;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-public class ClassicProblem
+public class MagicalSets
 {
+
 	public static void main(String[] args) throws Exception
 	{
-		int n = readInt(), k = readInt(), ans = 0;
-		int[] a = new int[n];
-		for (int i = 0; i < n; i++)
-			a[i] = readInt();
-		
-		
-		System.out.println(ans);
+		try
+		{
+			int n = readInt(), q = readInt();
+
+			int[][] s = new int[n][61];
+
+			for (int i = 0, x; i < n; i++)
+			{
+				x = readInt();
+				for (int j = 0; j < x; j++)
+					s[i][readInt() + 30]++;
+			}
+
+			for (int i = 0, x; i < q; i++)
+			{
+				x = readInt();
+				int[] res = new int[61];
+				for (int j = 0, a; j < x; j++)
+				{
+					a = readInt() - 1;
+					for (int k = 0; k < 61; k++)
+						res[k] += s[a][k];
+				}
+
+				ArrayList<Integer> ans = new ArrayList<Integer>();
+				for (int j = 0; j < 61; j++)
+					if (res[j] % 2 != 0)
+						ans.add(j - 30);
+
+				System.out.print(ans.size());
+				for (int j : ans)
+					System.out.print(" " + j);
+				System.out.println();
+			}
+		}
+		catch (Exception e)
+		{
+
+		}
 	}
 
 	static BufferedReader br = new BufferedReader(new InputStreamReader(

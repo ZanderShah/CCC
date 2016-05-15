@@ -1,24 +1,45 @@
-package TODO;
+package ECOO;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class ClassicProblem
+public class PalindromePanic
 {
+	static boolean isPali(int l, int r)
+	{
+		while (l < r)
+		{
+			if (s.charAt(l) != s.charAt(r))
+				return false;
+			l++;
+			r--;
+		}
+		return true;
+	}
+
+	static String s;
+
 	public static void main(String[] args) throws Exception
 	{
-		int n = readInt(), k = readInt(), ans = 0;
-		int[] a = new int[n];
-		for (int i = 0; i < n; i++)
-			a[i] = readInt();
-		
-		
-		System.out.println(ans);
+		for (int r = 0; r < 10; r++)
+		{
+			s = readLine();
+
+			int ans = s.length() - 1;
+			for (int i = 0; i < s.length(); i++)
+				if (isPali(0, s.length() - 1 - i) || isPali(i, s.length() - 1))
+				{
+					ans = i;
+					break;
+				}
+
+			System.out.println(ans);
+		}
 	}
 
 	static BufferedReader br = new BufferedReader(new InputStreamReader(
@@ -58,4 +79,5 @@ public class ClassicProblem
 	{
 		return br.readLine().trim();
 	}
+
 }

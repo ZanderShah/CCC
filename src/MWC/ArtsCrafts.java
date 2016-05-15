@@ -1,4 +1,5 @@
-package TODO;
+package MWC;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -6,19 +7,45 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.StringTokenizer;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
-public class ClassicProblem
+public class ArtsCrafts
 {
 	public static void main(String[] args) throws Exception
 	{
-		int n = readInt(), k = readInt(), ans = 0;
-		int[] a = new int[n];
+		int n = readInt(), x = readInt(), y = readInt();
+
+		TreeSet<Integer> v = new TreeSet<Integer>();
+		v.add(x);
+		TreeMap<Integer, Integer> h = new TreeMap<Integer, Integer>();
+
 		for (int i = 0; i < n; i++)
-			a[i] = readInt();
-		
-		
-		System.out.println(ans);
+		{
+			char c = readChar();
+
+			if (c == 'h')
+			{
+				int s = readInt(), d = readInt();
+				if (h.containsKey(s) && h.get(s) < d)
+					h.replace(s, d);
+				else if (!h.containsKey(s))
+					h.put(s, d);
+			}
+			else
+				v.add(readInt());
+		}
+
+		int t = v.size();
+		Iterator<Integer> i = h.navigableKeySet().iterator();
+		Integer[] search = v.toArray(new Integer[0]);
+
+		while (i.hasNext())
+			t += Math.abs(Arrays.binarySearch(search, h.get(i.next())) + 1);
+
+		System.out.println(t);
 	}
 
 	static BufferedReader br = new BufferedReader(new InputStreamReader(
