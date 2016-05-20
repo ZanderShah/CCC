@@ -10,28 +10,58 @@ import java.util.StringTokenizer;
 
 public class Explooooosion
 {
+	static int m;
+
 	static long power(long x, long n)
 	{
 		long a = 1;
-		for (int i = 0; i < 64; i++, x = (x % 1000000007) * (x % 1000000007))
+		for (int i = 0; i < 64; i++, x = (x % m) * (x % m))
 			if ((n >> i & 1) != 0)
-				a = (a % 1000000007) * (x % 1000000007);
-		return a % 1000000007;
+				a = (a % m) * (x % m);
+		return a % m;
 	}
 
 	public static void main(String[] args) throws Exception
 	{
-		int n = readInt(), m = 1000000007;
-		int[] p = new int[1001];
+		int n = readInt();
+		m = 1000000007;
+
+		int[] p = new int[1002];
 		for (int i = 0; i < n; i++)
 			p[readInt()]++;
 
 		long min = 0;
 		for (int i = 2; i <= 1000; i++)
-			min = (min + (p[i] != 0 ? power(i, p[i]) : 0)) % 1000000007;
+			min = (min + (p[i] * i) % m) % m;
 
-		System.out.println(min);
+		System.out.println((min == 0 ? 1 : min));
 
+		long max = 1;
+
+		int loss = Math.min(p[1], p[2]);
+		p[3] += loss;
+		p[2] -= loss;
+		p[1] -= loss;
+
+		loss = p[1] / 3;
+		p[3] += loss;
+		p[1] -= loss * 3;
+		
+		if (p[1] == 2)
+			p[2]++;
+		else if (p[1] == 1)
+			for (int i = 2; i <= 1000; i++)
+				if (p[i] != 0)
+				{
+					p[i + 1]++;
+					p[i]--;
+					break;
+				}
+
+		for (int i = 2; i <= 1001; i++)
+			max = (max * power(i, p[i])) % m;
+
+		System.out.println(max);
 	}
 
 	static BufferedReader br = new BufferedReader(new InputStreamReader(
