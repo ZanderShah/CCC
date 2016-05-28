@@ -1,4 +1,4 @@
-package TODO;
+package Codeforces;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -8,49 +8,20 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.StringTokenizer;
 
-public class Piramida
+public class NicholasAndPermutation
 {
 
 	public static void main(String[] args) throws Exception
 	{
-		readLong();
-		String s = readLine();
-		int[][] l = new int[s.length() + 1][26];
-
-		for (int i = 0; i < s.length(); i++)
+		int n = readInt(), max = 0, min = 0, v[] = new int[n];
+		for (int i = 0; i < n; i++)
 		{
-			l[i + 1][s.charAt(i) - 'A']++;
-			for (int j = 0; j < 26; j++)
-				l[i + 1][j] += l[i][j];
+			v[i] = readInt();
+			max = (v[i] > v[max] ? i : max);
+			min = (v[i] < v[min] ? i : min);
 		}
-
-		int k = readInt();
-
-		for (int i = 0; i < k; i++)
-		{
-			long x = readLong();
-			int c = readChar() - 'A';
-
-			long a = x * (x - 1) / 2;
-			long b = x * (x + 1) / 2 - 1;
-
-			long ans = 0;
-
-			if (a % s.length() != 0)
-			{
-				ans += l[s.length()][c] - l[(int) (a % s.length())][c];
-				a += s.length() - a % s.length();
-			}
-
-			if (a > b)
-				ans -= l[s.length()][c] - l[(int) (b % s.length())][c];
-			else
-				ans += (b - a) / s.length() * l[s.length()][c]
-						+ l[(int) (b % s.length()) + 1][c]
-						- l[(int) (a % s.length())][c];
-
-			System.out.println(ans);
-		}
+		System.out.println(Math.max(min,
+				Math.max(max, Math.max(n - 1 - max, n - 1 - min))));
 	}
 
 	static BufferedReader br = new BufferedReader(new InputStreamReader(

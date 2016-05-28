@@ -1,4 +1,4 @@
-package TODO;
+package MWC;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -7,43 +7,28 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.StringTokenizer;
-import java.util.TreeMap;
 
-public class AVeryVeryOriginalProblem
+public class ThiefInTheNight
 {
-	static boolean isPalindrome(int l, int r)
-	{
-		for (; l <= r; l++, r--)
-			if (s.charAt(l) != s.charAt(r))
-				return false;
-		return true;
-	}
-
-	static String s;
 
 	public static void main(String[] args) throws Exception
 	{
-		s = readLine();
-		int n = s.length();
-
-		TreeMap<Integer, Integer> findRight = new TreeMap<Integer, Integer>();
-		TreeMap<Integer, Integer> findLeft = new TreeMap<Integer, Integer>();
+		int f = readInt(), r = readInt();
+		int[][] sum = new int[f + 1][r + 1];
 		
-		long ans = 0;
-
-		for (int i = 0; i < n; i++)
-			for (int j = i; j < n; j++)
-				if (isPalindrome(i, j))
-				{
-					if (findRight.get(i) != null)
-						ans += findRight.get(i);
-					if (findLeft.get(j) != null)
-						ans += findLeft.get(j);
-					findRight.put(j, j);
-					findRight.put(i, i);
-				}
-
-		System.out.println(ans);
+		for (int i = 0; i < f; i++)
+			for (int j = 1; j <= r; j++)
+				sum[i][j] = readInt() + sum[i][j - 1];
+		
+		int q = readInt();
+		for (int i = 0, a, b, c; i < q; i++)
+		{
+			a = readInt() - 1;
+			b = readInt();
+			c = readInt() - 1;
+			
+			System.out.println(sum[c][b] - sum[c][a]);
+		}
 	}
 
 	static BufferedReader br = new BufferedReader(new InputStreamReader(

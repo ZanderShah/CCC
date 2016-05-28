@@ -1,80 +1,42 @@
-package TODO;
+package Codeforces;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-// Too slow
-public class GrafZeppelin
+public class PyramidOfGlasses
 {
 
 	public static void main(String[] args) throws Exception
 	{
-		int n = readInt();
-		int m = readInt();
-		int k = readInt();
+		int n = readInt(), t = readInt();
+		double[][] p = new double[n][n];
 
-		ArrayList<Integer>[] adj = new ArrayList[n];
-		int[][] dist = new int[n][n];
-		boolean[] vis = new boolean[n];
-		for (int i = 0; i < n; i++)
+		for (int r = 0; r < t; r++)
 		{
-			adj[i] = new ArrayList<Integer>();
-			for (int j = 0; j < n; j++)
-				if (i != j)
-					dist[i][j] = 1501;
-		}
+			p[0][0]++;
 
-		for (int i = 0, a, b; i < m; i++)
-		{
-			a = readInt() - 1;
-			b = readInt() - 1;
-			adj[a].add(b);
-			adj[b].add(a);
-		}
-		
-		for (int i = 0, u, b; i < n; i++)
-		{
-			while (true)
-			{
-				u = -1;
-				b = 1501;
-				
-				for (int j = 0; j < n; j++)
-					if (!vis[j] && dist[i][j] < b)
+			for (int i = 0; i < n; i++)
+				for (int j = 0; j <= i; j++)
+					if (p[i][j] > 1 && i + 1 < n)
 					{
-						u = j;
-						b = dist[i][j];
+						double f = p[i][j] - 1;
+						p[i][j] = 1;
+						p[i + 1][j] += f / 2;
+						p[i + 1][j + 1] += f / 2;
 					}
-				
-				if (b > 5)
-					break;
-				
-				for (int j : adj[u])
-					if (!vis[j])
-						dist[i][j] = Math.min(dist[i][j], dist[i][u] + 1);
-				
-				vis[u] = true;
-			}
-			
-			for (int j = 0; j < n; j++)
-				dist[j][i] = dist[i][j];
-			
-			vis = new boolean[n];
 		}
 
+		int c = 0;
 		for (int i = 0; i < n; i++)
-		{
-			int ans = 0;
-			for (int j = 0; j < n; j++)
-				if (dist[i][j] <= k)
-					ans++;
-			System.out.println(ans);
-		}
+			for (int j = 0; j <= i; j++)
+				if (p[i][j] >= 1)
+					c++;
+		System.out.println(c);
 	}
 
 	static BufferedReader br = new BufferedReader(new InputStreamReader(
@@ -114,5 +76,4 @@ public class GrafZeppelin
 	{
 		return br.readLine().trim();
 	}
-
 }
