@@ -84,37 +84,28 @@ public class PolycarpAndHay
 		Collections.sort(v);
 		boolean done = false;
 
-		for (int i = 0, j = 0; i < v.size() && !done; i = j)
+		for (int i = 0; i < v.size() && !done; i++)
 		{
-			while (j < v.size() && v.get(j).v == v.get(i).v)
-				j++;
-
-			if (k % v.get(i).v == 0 && v.get(i).v >= k / j)
+			tag = v.get(i).v;
+			if (k % v.get(i).v == 0 && f[v.get(i).x][v.get(i).y] != tag
+					&& v.get(i).v >= k / (i + 1))
 			{
-				int left = j;
-				tag = v.get(i).v;
-				for (int z = i; z < j && !done
-						&& left != 0 && v.get(i).v >= k / left; z++)
-					if (f[v.get(z).x][v.get(z).y] != tag)
+				size = 0;
+				fill(v.get(i).x, v.get(i).y);
+				if (size >= k / tag)
+				{
+					done = true;
+					out.println("YES");
+					size = 0;
+					res = new int[n][m];
+					prepare(v.get(i).x, v.get(i).y);
+					for (int a = 0; a < n; a++)
 					{
-						size = 0;
-						fill(v.get(z).x, v.get(z).y);
-						left -= size;
-						if (size >= k / tag)
-						{
-							done = true;
-							out.println("YES");
-							size = 0;
-							res = new int[n][m];
-							prepare(v.get(z).x, v.get(z).y);
-							for (int a = 0; a < n; a++)
-							{
-								for (int b = 0; b < m; b++)
-									out.print(res[a][b] + " ");
-								out.println();
-							}
-						}
+						for (int b = 0; b < m; b++)
+							out.print(res[a][b] + " ");
+						out.println();
 					}
+				}
 			}
 		}
 
