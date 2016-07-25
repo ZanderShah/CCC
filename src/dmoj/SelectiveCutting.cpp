@@ -9,7 +9,7 @@ struct query
 
 	bool operator<(const query& q) const 
 	{
-    	return m > q.m;
+    		return m > q.m;
   	}
 } q[100000];
 
