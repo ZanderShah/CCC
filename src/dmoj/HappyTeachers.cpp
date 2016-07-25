@@ -32,5 +32,5 @@ int main()
 			}
 		}
 
-	printf("%d\n%d", dp[n][s].first, dp[n][s].second);
+	printf("%d\n%d\n", dp[n][s].first, dp[n][s].second);
 }
