@@ -22,7 +22,7 @@ int query(int x, int r)
 int query(int r, int c, int v)
 {
 	int x = c + r + 1;
-	return query(x, r) - query(x, c - v - 1);
+	return query(x, r) - query(x, c - vs - 1);
 }
 
 int main()
