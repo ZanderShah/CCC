@@ -90,4 +90,5 @@ int replacement(int n, int gondolaSeq[], int replacementSeq[]) {
 int countReplacement(int n, int inputSeq[]) {
 	if (!valid(n, inputSeq))
 		return 0;
+	return 1;
 }
