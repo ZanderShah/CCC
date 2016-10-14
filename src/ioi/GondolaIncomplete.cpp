@@ -20,6 +20,14 @@ const int MOD = 1e9 + 9;
 set<int> s;
 vector<pii> v;
 
+ll binpow(int b, int e) {
+	ll ret = 1;
+	for (int i = 0; i < 31; i++, b = b * b % MOD)
+		if (e >> i & 1)
+			ret = ret * b % MOD;
+	return ret;
+}
+
 int valid(int n, int inputSeq[]) {
 	s.clear();
 
@@ -90,5 +98,13 @@ int replacement(int n, int gondolaSeq[], int replacementSeq[]) {
 int countReplacement(int n, int inputSeq[]) {
 	if (!valid(n, inputSeq))
 		return 0;
-	return 1;
+	
+	sort(inputSeq, inputSeq + n);
+	int ret = 0, mark = n;
+	for (int i = 0; i < n; i++)
+       		if (inputSeq[i] > n) {
+			ret += (int) binpow(n - 1 - i, inputSeq[i] - n - 1);
+			mark = inputSeq[i];
+		}
+	return ret;
 }
