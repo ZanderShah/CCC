@@ -30,6 +30,41 @@ typedef pair<double, double> pdd;
 int N, M;
 double A[550][550], b[550], tl, tr, bl, br, in;
 
+double *eliminate(double A[550][550], double b[550]) {
+	for (int i = 0; i < M; i++) {
+
+		// Pivot largest element to top
+		int m = i;
+		for (int j = i + 1; j < M; j++)
+			if (fabs(A[j][i]) > fabs(A[m][i]))
+				m = j;
+		swap(A[i], A[m]);
+		swap(b[i], b[m]);
+
+		// Eliminate elements in column
+		for (int j = i + 1; j < M; j++) {
+			double d = A[j][i] / A[i][i];
+			b[j] -= d * b[i];
+			for (int k = i; k < M; k++)
+				A[j][k] -= d * A[i][k];
+		}
+
+	}
+
+	for (int i = M - 1; i >= 0; i--)
+		for (int j = i - 1; j >= 0; j--) {
+			double d = A[j][i] / A[i][i];
+			b[j] -= b[i] * d;
+			for (int k = i; k < M; k++)
+				A[j][k] -= d * A[i][k];
+		}
+
+	for (int i = 0; i < M; i++)
+		b[i] /= A[i][i];
+
+	return b;
+}
+
 int main() {
 	scanf("%d", &N);
 	M = N * (N + 1) / 2;
@@ -51,31 +86,7 @@ int main() {
 			b[i] *= -in;
 		}
 
-	for (int i = 0; i < M; i++) {
-		// Pivot largest element to top
-		int m = i;
-		for (int j = i + 1; j < M; j++)
-			if (fabs(A[j][i]) > fabs(A[m][i]))
-				m = j;
-		swap(A[i], A[m]);
-		swap(b[i], b[m]);
+	double *g = eliminate(A, b);
 
-		// Eliminate elements in column
-		for (int j = i + 1; j < M; j++) {
-			double d = A[j][i] / A[i][i];
-			b[j] -= d * b[i];
-			for (int k = i; k < M; k++)
-				A[j][k] -= d * A[i][k];
-		}
-	}
-
-	for (int i = M - 1; i >= 0; i--)
-		for (int j = i - 1; j >= 0; j--) {
-			double d = A[j][i] / A[i][i];
-			b[j] -= b[i] * d;
-			for (int k = i; k < M; k++)
-				A[j][k] -= d * A[i][k];
-		}
-
-	printf("%f", b[0] / A[0][0]);
+	printf("%f", g[0]);
 }
