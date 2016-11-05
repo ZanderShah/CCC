@@ -20,7 +20,7 @@ const int MOD = 1e9 + 9;
 set<int> s;
 vector<pii> v;
 
-ll binpow(int b, int e) {
+ll bpow(ll b, ll e) {
 	ll ret = 1;
 	for (int i = 0; i < 31; i++, b = b * b % MOD)
 		if (e >> i & 1)
@@ -96,15 +96,20 @@ int replacement(int n, int gondolaSeq[], int replacementSeq[]) {
 }
 
 int countReplacement(int n, int inputSeq[]) {
-	if (!valid(n, inputSeq))
-		return 0;
-	
 	sort(inputSeq, inputSeq + n);
-	int ret = 0, mark = n;
-	for (int i = 0; i < n; i++)
-       		if (inputSeq[i] > n) {
-			ret += (int) binpow(n - 1 - i, inputSeq[i] - n - 1);
-			mark = inputSeq[i];
-		}
+
+	int mark = -1;
+	for (int i = 0; i < n; i++) {
+		if (inputSeq[i] <= n)
+			mark = i;
+	}
+
+	ll ret = 1;
+	int last = n;
+	for (int i = mark + 1; i < n; last = inputSeq[i], i++)
+		ret = ret * bpow(n - i, inputSeq[i] - last - 1) % MOD;
+
+	if (mark == -1)
+		return ret * n % MOD;
 	return ret;
 }
