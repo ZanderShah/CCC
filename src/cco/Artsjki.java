@@ -17,7 +17,7 @@ public class Artsjki
 	 * Semi-brute force approach which checks lengths but keeps track of the longest
 	 * path given a specific state defined by the binary representation of the current
 	 * path
-	 * 
+	 *
 	 * @param c the current node
 	 * @param s the current state of the solution
 	 * @return the maximum possible length from that state onwards
@@ -36,10 +36,10 @@ public class Artsjki
 			if (!vis[i] && towns[c][i] != 0)
 			{
 				vis[i] = true;
-				
+
 				max = Math.max(max, go(i, s + (int) Math.pow(2, i))
 						+ towns[c][i]);
-				
+
 				vis[i] = false;
 			}
 
@@ -71,7 +71,7 @@ public class Artsjki
 
 		vis = new boolean[n];
 		vis[0] = true;
-		
+
 		System.out.println(go(0, 1));
 	}
 

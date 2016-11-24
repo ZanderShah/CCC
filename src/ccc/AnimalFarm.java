@@ -5,9 +5,6 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-/*
- * My own implementation of the solution found on mmhs to see if I understand it
- */
 public class AnimalFarm
 {
 	static int[][] weight;

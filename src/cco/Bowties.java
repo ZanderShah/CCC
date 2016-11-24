@@ -77,7 +77,7 @@ public class Bowties
 			ey[i] = new ArrayList<Integer>();
 		}
 
-		
+
 		xMap.put(0, pts[0].x);
 		int ind1 = 0;
 		for (int i = 0; i < n; i++)
@@ -91,7 +91,7 @@ public class Bowties
 				xMap.put(ind1, pts[i].x);
 			}
 		}
-		
+
 		yMap.put(pts2[0].y, 0);
 		int ind2 = 0;
 		for (int i = 0; i < n; i++)
@@ -118,9 +118,9 @@ public class Bowties
 			if (ex[i].size() >= 3)
 			{
 				for (int j = 1; j < ex[i].size() - 1; j++)
-				{		
+				{
 					int s = Collections.binarySearch(ey[yMap.get(ex[i].get(j))], xMap.get(i));
-					
+
 					long l = s;
 					long r = ey[yMap.get(ex[i].get(j))].size() - 1 - s;
 					long d = j;
