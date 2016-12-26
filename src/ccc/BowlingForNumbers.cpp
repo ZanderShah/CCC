@@ -9,7 +9,7 @@ int bowl(int i, int j) {
 	if (dp[i][j] != -1)
 		return dp[i][j];
 	return dp[i][j] = max(bowl(i, j + 1),
-			bowl(i + 1, j + w) + v[j + w - 1] - v[j - 1]);
+	                      bowl(i + 1, j + w) + v[j + w - 1] - v[j - 1]);
 }
 
 int main() {
