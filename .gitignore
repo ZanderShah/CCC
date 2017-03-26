@@ -1,5 +1,11 @@
 *.class
 
+.DS_Store
+/bin/
+
+# Test cases
+*.txt
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
