@@ -35,7 +35,7 @@ typedef unordered_map<int, int> umii;
 
 const double EPS = 1e-6;
 
-int N, w[4005], x, y, v, mv;
+int N, w[4005], v, mv;
 pii p[4005];
 vector<pair<float, int> > tp, pp;
 double a;
@@ -52,12 +52,7 @@ int main() {
 			if (p0 == p1) {
 				continue;
 			}
-			x = p[p1].x - p[p0].x;
-			y = p[p1].y - p[p0].y;
-			a = atan2(y, x);
-			if (a < 0) {
-				a += 2 * M_PI;
-			}
+			a = atan2(p[p1].y - p[p0].y, p[p1].x - p[p0].x);
 			tp.pb(mp(a, w[p1]));
 			tp.pb(mp(a + 2 * M_PI, w[p1]));
 		}
@@ -73,7 +68,7 @@ int main() {
 
 		v = max(0, w[p0]);
 
-		for (int i = 0, j = 0; pp[i].x < 2 * M_PI; i++) {
+		for (int i = 0, j = 0; pp[i].x < M_PI; i++) {
 			while (pp[j].x - pp[i].x <= M_PI) {
 				v += pp[j].y;
 				j++;
