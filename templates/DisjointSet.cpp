@@ -10,7 +10,7 @@ private:
 int p, sz;
 };
 
-Node::Node(int pp) : p(pp), r(0) {
+Node::Node(int pp) : p(pp), sz(1) {
 }
 Node::~Node() {
 }
