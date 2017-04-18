@@ -3,11 +3,11 @@ public:
 Node(int pp);
 virtual ~Node();
 int getPar();
-int getRank();
 void setPar(int pp);
-void rankUp();
+int getSize();
+void addSize(int xsz);
 private:
-int p, r;
+int p, sz;
 };
 
 Node::Node(int pp) : p(pp), r(0) {
@@ -17,15 +17,16 @@ Node::~Node() {
 int Node::getPar() {
 	return p;
 }
-int Node::getRank() {
-	return r;
-}
-void Node::rankUp() {
-	r++;
-}
 void Node::setPar(int pp) {
 	p = pp;
 }
+int Node::getSize() {
+	return sz;
+}
+void Node::addSize(int xsz) {
+	sz += xsz;
+}
+
 
 class DisjointSet {
 public:
@@ -59,12 +60,11 @@ void DisjointSet::merge(int x, int y) {
 		return;
 	}
 
-	if (v[x].getRank() < v[y].getRank()) {
-		v[x].setPar(y);
-	} else if (v[x].getRank() > v[y].getRank()) {
+	if (v[x].getSize() > v[y].getSize()) {
+		v[x].addSize(v[y].getSize());
 		v[y].setPar(x);
 	} else {
-		v[y].setPar(x);
-		v[x].rankUp();
+		v[y].addSize(v[x].getSize());
+		v[x].setPar(y);
 	}
 }
