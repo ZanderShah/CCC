@@ -10,7 +10,7 @@ struct DisjointSet {
 
 	DisjointSet(int N) : N(N) {
 		for (int i = 0; i <= N; i++) {
-			v.push_back(Node(i));
+			v.push_back(DisjointSetNode(i));
 		}
 	}
 	int find(int x) {
