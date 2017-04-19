@@ -1,70 +1,38 @@
-class Node {
-public:
-Node(int pp);
-virtual ~Node();
-int getPar();
-void setPar(int pp);
-int getSize();
-void addSize(int xsz);
-private:
-int p, sz;
+struct DisjointSetNode {
+	int p, sz;
+	DisjointSetNode(int p) : p(p), sz(1) {
+	}
 };
 
-Node::Node(int pp) : p(pp), sz(1) {
-}
-Node::~Node() {
-}
-int Node::getPar() {
-	return p;
-}
-void Node::setPar(int pp) {
-	p = pp;
-}
-int Node::getSize() {
-	return sz;
-}
-void Node::addSize(int xsz) {
-	sz += xsz;
-}
+struct DisjointSet {
+	int N;
+	vector<Node> v;
 
+	DisjointSet(int N) : N(N) {
+		for (int i = 0; i <= N; i++) {
+			v.push_back(Node(i));
+		}
+	}
+	int find(int x) {
+		if (v[x].p != x) {
+			v[x].p = find(v[x].p);
+		}
+		return v[x].p;
+	}
+	void merge(int x, int y) {
+		x = find(x);
+		y = find(y);
 
-class DisjointSet {
-public:
-DisjointSet(int N);
-virtual ~DisjointSet();
-int find(int x);
-void merge(int x, int y);
-private:
-int N;
-vector<Node> v;
+		if (x == y) {
+			return;
+		}
+
+		if (v[x].sz > v[y].sz) {
+			v[x].sz += v[y].sz;
+			v[y].p = x;
+		} else {
+			v[y].sz += v[x].sz;
+			v[x].p = y;
+		}
+	}
 };
-
-DisjointSet::DisjointSet(int N) : N(N) {
-	for (int i = 0; i <= N; i++) {
-		v.push_back(Node(i));
-	}
-}
-DisjointSet::~DisjointSet() {
-}
-int DisjointSet::find(int x) {
-	if (v[x].getPar() != x) {
-		v[x].setPar(find(v[x].getPar()));
-	}
-	return v[x].getPar();
-}
-void DisjointSet::merge(int x, int y) {
-	x = find(x);
-	y = find(y);
-
-	if (x == y) {
-		return;
-	}
-
-	if (v[x].getSize() > v[y].getSize()) {
-		v[x].addSize(v[y].getSize());
-		v[y].setPar(x);
-	} else {
-		v[y].addSize(v[x].getSize());
-		v[x].setPar(y);
-	}
-}
