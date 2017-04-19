@@ -6,7 +6,7 @@ struct DisjointSetNode {
 
 struct DisjointSet {
 	int N;
-	vector<Node> v;
+	vector<DisjointSetNode> v;
 
 	DisjointSet(int N) : N(N) {
 		for (int i = 0; i <= N; i++) {
