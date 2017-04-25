@@ -1,16 +1,16 @@
-struct DisjointSetNode {
-	int p, sz;
-	DisjointSetNode(int p) : p(p), sz(1) {
-	}
-};
-
 struct DisjointSet {
+	struct Node {
+		int p, sz;
+		Node(int p) : p(p), sz(1) {
+		}
+	};
+
 	int N;
-	vector<DisjointSetNode> v;
+	vector<Node> v;
 
 	DisjointSet(int N) : N(N) {
 		for (int i = 0; i <= N; i++) {
-			v.pb(DisjointSetNode(i));
+			v.pb(Node(i));
 		}
 	}
 	int find(int x) {

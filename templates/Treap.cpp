@@ -1,33 +1,31 @@
-struct TreapNode {
-	int key, val, size, pri;
-	TreapNode *left, *right;
-	TreapNode(int val, int key) : key(key), val(val), size(1) {
-		left = right = nullptr;
-		pri = rand() * 65536 + rand();
-	}
-	TreapNode(int val) : key(val), val(val), size(1) {
-		left = right = nullptr;
-		pri = rand() * 65536 + rand();
-	}
-};
-
 struct Treap {
-	TreapNode* root;
+	struct Node {
+		int key, val, size, pri;
+		Node *left, *right;
+		Node(int val, int key) : key(key), val(val), size(1) {
+			left = right = nullptr;
+			pri = rand() * 65536 + rand();
+		}
+		Node(int val) : key(val), val(val), size(1) {
+			left = right = nullptr;
+			pri = rand() * 65536 + rand();
+		}
+	} *root;
 
 	Treap() {
 		root = nullptr;
 	}
-	static int size(TreapNode *cur) {
+	static int size(Node *cur) {
 		return cur != nullptr ? cur->size : 0;
 	}
-	static void update(TreapNode *cur) {
+	static void update(Node *cur) {
 		if (nullptr == cur) {
 			return;
 		}
 		cur->size = 1 + size(cur->left) + size(cur->right);
 	}
 
-	static TreapNode* merge(TreapNode *l, TreapNode *r) {
+	static Node* merge(Node *l, Node *r) {
 		if (nullptr == l) {
 			return r;
 		}
@@ -46,7 +44,7 @@ struct Treap {
 		}
 	}
 
-	static pair<TreapNode*, TreapNode*> split(TreapNode *cur, int key) {
+	static pair<Node*, Node*> split(Node *cur, int key) {
 		if (nullptr == cur) {
 			return mp(nullptr, nullptr);
 		}
@@ -70,7 +68,7 @@ struct Treap {
 		}
 	}
 
-	bool contains(TreapNode *cur, int key) {
+	bool contains(Node *cur, int key) {
 		if (nullptr == cur) {
 			return 0;
 		}
@@ -88,7 +86,7 @@ struct Treap {
 	void insert(int val) {
 		assert(!contains(val));
 		auto p = split(root, val);
-		root = merge(p.x, merge(new TreapNode(val), p.y));
+		root = merge(p.x, merge(new Node(val), p.y));
 	}
 
 	void remove(int val) {
@@ -97,7 +95,7 @@ struct Treap {
 		root = merge(p.x, p.y);
 	}
 
-	int kthSmallest(TreapNode *cur, int k) {
+	int kthSmallest(Node *cur, int k) {
 		int leftSize = size(cur->left);
 
 		if (leftSize + 1 == k) {
@@ -113,7 +111,7 @@ struct Treap {
 		return kthSmallest(root, k);
 	}
 
-	int indexOf(TreapNode *cur, int key) {
+	int indexOf(Node *cur, int key) {
 		int leftSize = size(cur->left);
 
 		if (key < cur->key) {
@@ -129,7 +127,7 @@ struct Treap {
 		return contains(x) ? indexOf(root, x) : -1;
 	}
 
-	void traverse(TreapNode *cur) {
+	void traverse(Node *cur) {
 		if (nullptr == cur) {
 			return;
 		}
