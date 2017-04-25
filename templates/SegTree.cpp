@@ -1,6 +1,6 @@
 // SegTree used for DMOJ TouchingSegments
 
-struct SegmentTree {
+struct SegTree {
 	struct Node {
 		int l, r, v, lazy;
 	};
@@ -8,7 +8,7 @@ struct SegmentTree {
 	int N;
 	vector<Node> seg;
 
-	SegmentTree(int N) : N(N), seg(3 * N) {
+	SegTree(int N) : N(N), seg(3 * N) {
 		build(1, 1, N);
 	}
 
