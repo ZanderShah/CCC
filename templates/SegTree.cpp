@@ -19,7 +19,7 @@ struct SegTree {
 			// Initialize
 			return;
 		}
-		int m = (l + r) / 2;
+		int m = (l + r) >> 1;
 		build(l(i), l, m);
 		build(r(i), m + 1, r);
 	}
