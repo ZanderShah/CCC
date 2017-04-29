@@ -35,27 +35,43 @@ typedef unordered_map<int, int> umii;
 
 const int MAXN = 1e5 + 5;
 
-int N, A[MAXN], Q, bit[MAXN];
-ll ans[MAXN];
+int N, A[MAXN], Q, bit[MAXN], size;
+ll inv = 0, ans[MAXN];
+vector<int> val;
+umii comp;
 
-void update(int x, int v) {
-	for (; x < MAXN; x += x & -x) {
-		bit[x] += v;
-	}
-}
+struct BIT {
+	int N;
+	vector<ll> bit;
 
-int query(int x) {
-	int ret = 0;
-	for (; x; x -= x & -x) {
-		ret += bit[x];
+	BIT(int N) : N(N), bit(N + 1) {
 	}
-	return ret;
-}
+
+	void update(int x, ll v) {
+		if (x == 0) {
+			return;
+		}
+		for (; x <= N; x += x & -x) {
+			bit[x] += v;
+		}
+	}
+
+	ll query(int x) {
+		if (x == 0) {
+			return 0;
+		}
+		ll ret = 0;
+		for (; x; x -= x & -x) {
+			ret += bit[x];
+		}
+		return ret;
+	}
+};
 
 struct Query {
 	int i, l, r, m;
 	bool operator< (const Query &q) const {
-		if (l == q.l) {
+		if (l / size == q.l / size) {
 			return r < q.r;
 		}
 		return l < q.l;
@@ -64,9 +80,25 @@ struct Query {
 
 int main() {
 	scanf("%d", &N);
+	BIT bit(N);
+	size = sqrt(N);
+	val.pb(-1);
 	for (int i = 1; i <= N; i++) {
 		scanf("%d", &A[i]);
+		val.pb(A[i]);
 	}
+
+	// Compress
+	sort(val.begin(), val.end());
+	for (int i = 1, j = 1; i < val.size(); i++) {
+		while (i < val.size() && val[i] == val[i - 1]) {
+			i++;
+		}
+		if (i < val.size()) {
+			comp[val[i]] = j++;
+		}
+	}
+
 	scanf("%d", &Q);
 	for (int i = 0; i < Q; i++) {
 		scanf("%d %d", &q[i].l, &q[i].r);
@@ -74,27 +106,29 @@ int main() {
 	}
 	sort(q, q + Q);
 
-	int l = 1, r = 1;
-	ll s = 0;
-
-	for (int i = 0; i < Q; i++) {
+	for (int i = 0, l = 0, r = 0; i < Q; i++) {
 		while (l < q[i].l) {
-			s -= query(A[l] - 1);
-			update(A[l], -1);
+			inv -= bit.query(comp[A[l]] - 1);
+			bit.update(comp[A[l]], -1);
 			l++;
 		}
-		while (r < q[i].r) {
-			s += query(A[r]);
-			update(A[r], 1);
-			r++;
+		while (l > q[i].l) {
+			l--;
+			inv += bit.query(comp[A[l]] - 1);
+			bit.update(comp[A[l]], 1);
 		}
-		while (r > q[i].r) {
-			s -= query(A[r]);
-			update(A[r], -1);
+		while (r < q[i].l) {
+			r++;
+			inv += r - l - bit.query(comp[A[r]]);
+			bit.update(comp[A[r]], 1);
+		}
+		while (r > q[i].l) {
+			inv -= r - l + 1 - bit.query(comp[A[r]]);
+			bit.update(comp[A[r]], -1);
 			r--;
 		}
 
-		ans[q[i].i] = s;
+		ans[q[i].i] = inv;
 	}
 
 	for (int i = 0; i < Q; i++) {

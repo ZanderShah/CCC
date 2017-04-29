@@ -33,19 +33,19 @@ typedef pair<ll, ll> pll;
 typedef map<int, int> mii;
 typedef unordered_map<int, int> umii;
 
-struct DisjointSetNode {
-	int p, sz;
-	DisjointSetNode(int p) : p(p), sz(1) {
-	}
-};
-
 struct DisjointSet {
+	struct Node {
+		int p, sz;
+		Node(int p) : p(p), sz(1) {
+		}
+	};
+
 	int N;
-	vector<DisjointSetNode> v;
+	vector<Node> v;
 
 	DisjointSet(int N) : N(N) {
 		for (int i = 0; i <= N; i++) {
-			v.pb(DisjointSetNode(i));
+			v.pb(Node(i));
 		}
 	}
 	int find(int x) {
@@ -72,6 +72,7 @@ struct DisjointSet {
 	}
 };
 
+
 struct Edge {
 	int a, b, c;
 	Edge(int a, int b, int c) : a(a), b(b), c(c) {
@@ -89,7 +90,6 @@ bool vis[50005];
 
 void tour(int i) {
 	vis[i] = 1;
-
 }
 
 int main() {
@@ -126,7 +126,4 @@ int main() {
 			return 0;
 		}
 	}
-
-	// Get Euler Tour
-	tour(1, 0);
 }
