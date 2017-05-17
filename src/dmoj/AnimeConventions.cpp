@@ -72,58 +72,18 @@ struct DisjointSet {
 	}
 };
 
-
-struct Edge {
-	int a, b, c;
-	Edge(int a, int b, int c) : a(a), b(b), c(c) {
-	}
-	bool operator< (const Edge e) const {
-		return c < e.c;
-	}
-};
-
-int N, M;
-ll cost = 0, best = (ll) 1 << 60;
-vector<Edge> e, no;
-vector<pii> mst[50005];
-bool vis[50005];
-
-void tour(int i) {
-	vis[i] = 1;
-}
+int N, Q, x, y;
+char c;
 
 int main() {
-	scan(N);
-	scan(M);
+	scanf("%d %d", &N, &Q);
 	DisjointSet ds(N);
-
-	for (int i = 0, a, b, c; i < M; ++i) {
-		scan(a); scan(b); scan(c);
-		e.pb(Edge(a, b, c));
-	}
-	sort(e.begin(), e.end());
-
-	// Obtain MST
-	for (int i = 0; i < M; i++) {
-		if (ds.find(e[i].a) != ds.find(e[i].b)) {
-			ds.merge(e[i].a, e[i].b);
-			mst[e[i].a].pb(mp(e[i].b, e[i].c));
-			mst[e[i].b].pb(mp(e[i].a, e[i].c));
-			cost += e[i].c;
-		} else {
-			no.pb(e[i]);
-		}
-	}
-
-	if (no.empty()) {
-		printf("-1\n");
-		return 0;
-	}
-
-	for (int i = 2; i <= N; ++i) {
-		if (ds.find(1) != ds.find(i)) {
-			printf("-1\n");
-			return 0;
-		}
+	for (int i = 0; i < Q; i++) {
+		scanf(" %c %d %d", &c, &x, &y);
+        if (c == 'A') {
+            ds.merge(x, y);
+        } else {
+            printf("%c\n", ds.find(x) == ds.find(y) ? 'Y' : 'N');
+        }
 	}
 }
