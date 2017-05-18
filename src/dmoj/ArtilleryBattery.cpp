@@ -35,90 +35,14 @@ typedef map<int, int> mii;
 typedef unordered_map<int, int> umii;
 
 string s;
-int x, y, g[15][15], E = 0, mostKills = 0, leastMoves = 0;
-int vis[15][15][1 << 16];
-
-void play(int r, int c, int k, int m) {
-	if (vis[r][c][k] != -1 && vis[r][c][k] <= m) {
-		return;
-	}
-
-	vis[r][c][k] = m;
-
-	int kills = __builtin_popcount(k);
-	if (kills > mostKills) {
-		mostKills = kills;
-		leastMoves = m;
-	} else if (kills == mostKills) {
-		leastMoves = min(leastMoves, m);
-	}
-
-	if (kills == E - 1) {
-		return;
-	}
-
-	// Travel
-	for (int i = r - 1; i >= 0; i--) {
-		if (g[i][c] && !(g[i][c] & k)) {
-			// Capture attempt
-			for (int j = i - 1; j >= 0; j--) {
-				if (g[j][c] && !(g[j][c] & k)) {
-					play(j, c, k | g[j][c], m + 1);
-					break;
-				}
-			}
-			break;
-		}
-		play(i, c, k, m + 1);
-	}
-	for (int i = r + 1; i < 10; i++) {
-		if (g[i][c] && !(g[i][c] & k)) {
-			// Capture attempt
-			for (int j = i + 1; j < 10; j++) {
-				if (g[j][c] && !(g[j][c] & k)) {
-					play(j, c, k | g[j][c], m + 1);
-					break;
-				}
-			}
-			break;
-		}
-		play(i, c, k, m + 1);
-	}
-	for (int i = c - 1; i >= 0; i--) {
-		if (g[r][i] && !(g[r][i] & k)) {
-			// Capture attempt
-			for (int j = i - 1; j >= 0; j--) {
-				if (g[r][j] && !(g[r][j] & k)) {
-					play(r, j, k | g[r][j], m + 1);
-					break;
-				}
-			}
-			break;
-		}
-		play(r, i, k, m + 1);
-	}
-	for (int i = c + 1; i < 9; i++) {
-		if (g[r][i] && !(g[r][i] & k)) {
-			// Capture attempt
-			for (int j = i + 1; j < 9; j++) {
-				if (g[r][j] && !(g[r][j] & k)) {
-					play(r, j, k | g[r][j], m + 1);
-					break;
-				}
-			}
-			break;
-		}
-		play(r, i, k, m + 1);
-	}
-}
+int x, y, g[10][9], E = 0, mostKills = 0, leastMoves = 0;
+int vis[10][9][1 << 15];
 
 struct State {
 	int r, c, k, m;
 };
 
 int main() {
-	memset(vis, -1, sizeof vis);
-
 	for (int i = 0; i < 10; i++) {
 		cin >> s;
 		for (int j = 0; j < 9; j++) {
@@ -132,6 +56,14 @@ int main() {
 		}
 	}
 
+	for (int i = 0; i < 10; i++) {
+		for (int j = 0; j < 9; j++) {
+			for (int k = 0; k < (1 << 15); k++) {
+				vis[i][j][k] = 1 << 30;
+			}
+		}
+	}
+
 	queue<State> q;
 	q.push(State {x, y, 0, 0});
 
@@ -139,7 +71,7 @@ int main() {
 		int r = q.front().r, c = q.front().c, k = q.front().k, m = q.front().m;
 		q.pop();
 
-		if (vis[r][c][k] != -1 && vis[r][c][k] <= m) {
+		if (vis[r][c][k] <= m) {
 			continue;
 		}
 
@@ -169,7 +101,9 @@ int main() {
 				}
 				break;
 			}
-			q.push(State {i, c, k, m + 1});
+			if (vis[i][c][k] > m + 1) {
+				q.push(State {i, c, k, m + 1});
+			}
 		}
 		for (int i = r + 1; i < 10; i++) {
 			if (g[i][c] && !(g[i][c] & k)) {
@@ -182,7 +116,9 @@ int main() {
 				}
 				break;
 			}
-			q.push(State {i, c, k, m + 1});
+			if (vis[i][c][k] > m + 1) {
+				q.push(State {i, c, k, m + 1});
+			}
 		}
 		for (int i = c - 1; i >= 0; i--) {
 			if (g[r][i] && !(g[r][i] & k)) {
@@ -195,7 +131,9 @@ int main() {
 				}
 				break;
 			}
-			q.push(State {r, i, k, m + 1});
+			if (vis[r][i][k] > m + 1) {
+				q.push(State {r, i, k, m + 1});
+			}
 		}
 		for (int i = c + 1; i < 9; i++) {
 			if (g[r][i] && !(g[r][i] & k)) {
@@ -208,7 +146,9 @@ int main() {
 				}
 				break;
 			}
-			q.push(State {r, i, k, m + 1});
+			if (vis[r][i][k] > m + 1) {
+				q.push(State {r, i, k, m + 1});
+			}
 		}
 	}
 
