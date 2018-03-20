@@ -33,38 +33,37 @@ typedef pair<ll, ll> pll;
 typedef map<int, int> mii;
 typedef unordered_map<int, int> umii;
 
-bool L[500005];
-vector<int> LL;
+const int MOD = 1e9 + 7;
+int n, w, h, dp[2][10005];
+ll p = 0;
 
 int main()
 {
-    memset(L, false, sizeof L);
-    while (1)
+    scanf("%d %d %d", &n, &w, &h);
+    for (int i = 0; i <= h; ++i)
     {
-        int l;
-        scanf("%d", &l);
-        if (l == -1)
-            break;
-        LL.pb(l);
-        L[l] = true;
+        if (i * w <= n)
+            p++;
     }
-    for (int i = 0; i < LL.size(); ++i)
+    memset(dp, 0, sizeof dp);
+
+    dp[0][n] = 1;
+    for (int i = 1; i <= w; ++i)
     {
-        int c = 0;
-        for (int j = 0; j < 18; ++j)
+        for (int j = 0; j <= n; ++j)
         {
-            // 1
-            int l1 = LL[i] ^ (1ll << j);
-            if (LL[i] < l1 && L[l1])
-                c++;
-            // 2
-            for (int k = j + 1; k < 18; ++k)
-            {
-                int l2 = l1 ^ (1ll << k);
-                if (LL[i] < l2 && L[l2])
-                    c++;
-            }
+            dp[1][j] = dp[0][min(n, j + h)];
+            if (j != 0)
+                dp[1][j] = (dp[1][j] - dp[0][j - 1] + MOD) % MOD;
         }
-        printf("%d:%d\n", LL[i], c);
+        dp[0][0] = dp[1][0];
+        dp[1][0] = 0;
+        for (int j = 1; j <= n; ++j)
+        {
+            dp[0][j] = (dp[0][j - 1] + dp[1][j]) % MOD;
+            dp[1][j] = 0;
+        }
     }
+
+    printf("%lld\n", dp[0][n] - p);
 }
