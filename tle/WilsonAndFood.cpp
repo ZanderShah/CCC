@@ -33,7 +33,38 @@ typedef pair<ll, ll> pll;
 typedef map<int, int> mii;
 typedef unordered_map<int, int> umii;
 
+int F, N;
+ll ee, d;
+string s;
+unordered_map<string, int> e;
+vector<pii> f;
+
 int main()
 {
-
+    cin >> F;
+    for (int i = 0; i < F; ++i)
+    {
+        cin >> s >> ee;
+        e[s] = ee;
+    }
+    cin >> N;
+    for (int i = 0; i < N; ++i)
+    {
+        cin >> s >> d;
+        f.pb(mp(d, e[s]));
+    }
+    sort(f.begin(), f.end());
+    d = ee = 0;
+    for (int i = 0; i < N; ++i)
+    {
+        ll c = f[i].x - d;
+        if (ee < c && c != 0)
+        {
+            cout << i << endl;
+            return 0;
+        }
+        d = f[i].x;
+        ee += f[i].y - c;
+    }
+    cout << N << endl;
 }

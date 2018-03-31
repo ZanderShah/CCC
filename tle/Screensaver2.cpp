@@ -33,7 +33,27 @@ typedef pair<ll, ll> pll;
 typedef map<int, int> mii;
 typedef unordered_map<int, int> umii;
 
+int N, T, t;
+bool o[100005];
+
 int main()
 {
+    cin >> N >> T;
+    t = N;
 
+    string s;
+    cin >> s;
+    for (int i = 0; i < s.length(); ++i)
+    {
+        o[i + 1] = s[i] == '|';
+        t += 2 * o[i + 1];
+    }
+
+    for (int i = 0, m; i < T; ++i)
+    {
+        cin >> m;
+        t += o[m] ? -2 : 2;
+        o[m] ^= 1;
+        cout << (o[1] ? 1 : t) << endl;
+    }
 }
