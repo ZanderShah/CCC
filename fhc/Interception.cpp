@@ -33,6 +33,20 @@ typedef pair<ll, ll> pll;
 typedef map<int, int> mii;
 typedef unordered_map<int, int> umii;
 
-int main() {
+int T, N;
+ll P[55];
 
+int main() {
+    scanf("%d", &T);
+    for (int t = 1; t <= T; ++t) {
+        scanf("%d", &N);
+        for (int i = 0; i <= N; ++i) {
+            scanf("%lld", &P[i]);
+        }
+        if (N & 1) {
+            printf("Case #%d: 1\n0.0\n", t);
+        } else {
+            printf("Case #%d: 0\n", t);
+        }
+    }
 }

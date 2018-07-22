@@ -33,6 +33,26 @@ typedef pair<ll, ll> pll;
 typedef map<int, int> mii;
 typedef unordered_map<int, int> umii;
 
-int main() {
+long long T, K, k, N, V;
+bool v[55];
+string s[55];
 
+int main() {
+    cin >> T;
+    for (int t = 1; t <= T; ++t) {
+        cin >> N >> K >> V;
+        for (int i = 0; i < N; ++i) {
+            cin >> s[i];
+            v[i] = 0;
+        }
+        k = K * (V - 1) % N;
+        for (int i = 0; i < K; ++i, k = (k + 1) % N) {
+            v[k] = 1;
+        }
+        cout << "Case #" << t << ":";
+        for (int i = 0; i < N; ++i) {
+            if (v[i]) cout << " " << s[i];
+        }
+        cout << endl;
+    }
 }
